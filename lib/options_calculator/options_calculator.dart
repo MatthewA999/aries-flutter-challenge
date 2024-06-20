@@ -31,10 +31,30 @@ class _OptionsCalculatorState extends State<OptionsCalculator> {
     calculatePayOff();
   }
 
+  /// Calculates the total payoff of a list of option contracts for a given underlying price.
+  ///
+  /// This function iterates through each option contract, calculates the individual payoff
+  /// based on the type and position (long/short) of the option, and sums them up to get
+  /// the total payoff.
+  ///
+  /// The payoff for each option is calculated as follows:
+  /// - For long call options: max(underlyingPrice - strikePrice, 0) - ask price
+  /// - For short call options: bid price - max(underlyingPrice - strikePrice, 0)
+  /// - For long put options: max(strikePrice - underlyingPrice, 0) - ask price
+  /// - For short put options: bid price - max(strikePrice - underlyingPrice, 0)
+  ///
+  /// - Parameters:
+  ///   - options: A list of [OptionContract] objects representing the option contracts.
+  ///   - underlyingPrice: A [double] representing the price of the underlying asset at expiry.
+  ///
+  /// - Returns: A [double] representing the total payoff for the given list of option contracts
+  ///            at the specified underlying price.
+
   void calculatePayOff() {
     final selectedOptions =
         widget.optionsData.where((item) => item.isSelected ?? false).toList();
 
+    //avoid calculation for empty list
     if (selectedOptions.isEmpty) {
       setState(() {});
       return;
@@ -76,6 +96,7 @@ class _OptionsCalculatorState extends State<OptionsCalculator> {
       }
     }
 
+    //Handle state
     setState(() {
       prices = tempPrices;
       profits = tempProfits;
