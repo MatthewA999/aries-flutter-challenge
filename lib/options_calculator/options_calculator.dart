@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/models/options_contract.dart';
 import 'package:flutter_challenge/utils/constants.dart';
+import 'package:flutter_challenge/utils/enums.dart';
 import 'package:flutter_challenge/utils/extension.dart';
 import 'package:flutter_challenge/utils/utils.dart';
 
@@ -29,7 +30,7 @@ class _OptionsCalculatorState extends State<OptionsCalculator> {
     super.initState();
     calculatePayOff();
   }
-  
+
   void calculatePayOff() {
     final selectedOptions =
         widget.optionsData.where((item) => item.isSelected ?? false).toList();
@@ -47,7 +48,7 @@ class _OptionsCalculatorState extends State<OptionsCalculator> {
 
     for (final option in selectedOptions) {
       tempPrices.add(option.strikePrice);
-      if (option.type == 'Call') {
+      if (option.type == CallType.call) {
         tempPrices.add(option.strikePrice + (option.bid + option.ask) / 2);
       } else {
         tempPrices.add(option.strikePrice - (option.bid + option.ask) / 2);
