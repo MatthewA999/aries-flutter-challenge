@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/models/options_contract.dart';
 import 'package:flutter_challenge/utils/constants.dart';
+import 'package:flutter_challenge/utils/extension.dart';
 import 'package:flutter_challenge/utils/utils.dart';
 
 class OptionsCalculator extends StatefulWidget {
@@ -140,7 +141,7 @@ class _OptionsCalculatorState extends State<OptionsCalculator> {
                       },
                     ),
                     Text(
-                        '${item.longShort} ${item.type} - ${item.strikePrice}'),
+                        '${item.longShort.getOption()} ${item.type.getType()} - ${item.strikePrice}'),
                   ],
                 );
               }).toList(),

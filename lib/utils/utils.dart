@@ -1,20 +1,21 @@
 import 'dart:math';
 
 import 'package:flutter_challenge/models/options_contract.dart';
+import 'package:flutter_challenge/utils/enums.dart';
 
 double calculatePayOffAtPrice(
     double price, List<OptionContract> selectedOptions) {
   return selectedOptions.fold<double>(0.0, (acc, option) {
     double cost = (option.bid + option.ask) / 2;
 
-    if (option.type == 'Call') {
-      if (option.longShort == 'long') {
+    if (option.type == CallType.call) {
+      if (option.longShort == CallOption.long) {
         return acc + max(0, price - option.strikePrice) - cost;
       } else {
         return acc + cost - max(0, price - option.strikePrice);
       }
-    } else if (option.type == 'Put') {
-      if (option.longShort == 'long') {
+    } else if (option.type == CallType.put) {
+      if (option.longShort == CallOption.long) {
         return acc + max(0, option.strikePrice - price) - cost;
       } else {
         return acc + cost - max(0, option.strikePrice - price);
