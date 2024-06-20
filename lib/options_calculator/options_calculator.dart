@@ -29,7 +29,7 @@ class _OptionsCalculatorState extends State<OptionsCalculator> {
     super.initState();
     calculatePayOff();
   }
-
+  
   void calculatePayOff() {
     final selectedOptions =
         widget.optionsData.where((item) => item.isSelected ?? false).toList();
